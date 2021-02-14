@@ -1,0 +1,98 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+  <meta http-equiv="refresh" content="45">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script>
+          function call_counter(url, id) {
+              window.open('/delete/'+id+'/', "_self");
+              jQuery.get('/delete/'+id+'/', function (data) {
+                  alert("counter updated!");
+              });
+          }
+      </script>
+
+<table align="center" style="width:1500px" class="table table-hover table-bordered table-sm">	
+	<thead>
+		<th style="color:black;font-size:30px;" scope="col" colspan="6">Alertas</th>
+	</thead>	
+  <thead  class="thead-dark">
+    <tr>
+      <th style="color:white;font-size:25px;width:140px;" scope="col"># Cajero</th>
+      <th style="color:white;font-size:25px;width:120px;" scope="col">Fecha</th>
+      <th style="color:white;font-size:25px;width:120px;" scope="col">Hora</th>
+      <th style="color:white;font-size:25px;width:200px;" scope="col">Evento</th>
+      <th style="color:white;font-size:25px;width:200px;" scope="col">Locación</th>
+      <th style="color:white;font-size:25px;width:200px" scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody class="bg-danger">
+  	{% for err in error %}
+    <tr>
+      <th style="color:black;font-size:25px;width:140px;" scope="row">{{err.0}}</th>
+      <td style="color:black;font-size:25px;width:120px;">{{err.1}}</td>
+      <td style="color:black;font-size:25px;width:120px;">{{err.2}}</td>
+      <td style="color:black;font-size:25px;width:200px;">{{err.3}}</td>
+      <td style="color:black;font-size:25px;width:200px;">{{err.4}}</td>
+      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id);" id={{err.0}}/{{err.3}} type="button" class="btn btn-secondary">Bajar</button></th>
+    </tr>
+    {% endfor %}
+</table>
+
+<table align="center" style="width:1500px" class="table table-hover table-bordered table-sm" >
+	<thead>
+		<th style="color:black;font-size:30px;" scope="col" colspan="6">Warnings</th>
+	</thead>
+  <thead  class="thead-dark">
+    <tr>
+      <th style="color:white;font-size:25px;width:140px;" scope="col"># Cajero</th>
+      <th style="color:white;font-size:25px;width:120px;" scope="col">Fecha</th>
+      <th style="color:white;font-size:25px;width:120px;" scope="col">Hora</th>
+      <th style="color:white;font-size:25px;width:200px;" scope="col">Evento</th>
+      <th style="color:white;font-size:25px;width:200px;" scope="col">Locación</th>
+      <th style="color:white;font-size:25px;width:200px" scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody  class="bg-warning">
+	{% for war in warning %}
+    <tr>
+      <th style="color:black;font-size:25px;width:140px;" scope="row">{{war.0}}</th>
+      <td style="color:black;font-size:25px;width:120px;">{{war.1}}</td>
+      <td style="color:black;font-size:25px;width:120px;">{{war.2}}</td>
+      <td style="color:black;font-size:25px;width:200px;">{{war.3}}</td>
+      <td style="color:black;font-size:25px;width:200px;">{{war.4}}</td>
+      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id);" id={{war.0}}/{{war.3}} type="button" class="btn btn-secondary">Bajar</button></th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table align="center" style="width:1500px;" class="table table-hover table-bordered table-sm">
+	<thead>
+		<th style="color:black;font-size:30px;" scope="col" colspan="6">Normales</th>
+	</thead>
+  <thead class="thead-dark">
+    <tr>
+      <th style="color:white;font-size:25px;width:140px;" scope="col"># Cajero</th>
+      <th style="color:white;font-size:25px;width:120px;" scope="col">Fecha</th>
+      <th style="color:white;font-size:25px;width:120px;" scope="col">Hora</th>
+      <th style="color:white;font-size:25px;width:200px;" scope="col">Evento</th>
+      <th style="color:white;font-size:25px;width:200px;" scope="col">Locación</th>
+      <th style="color:white;font-size:25px;width:200px" scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody class="bg-success">
+	{% for nor in normal %}
+    <tr>
+      <th style="color:black;font-size:25px;width:140px;" scope="row">{{nor.0}}</th>
+      <td style="color:black;font-size:25px;width:120px;">{{nor.1}}</td>
+      <td style="color:black;font-size:25px;width:120px;">{{nor.2}}</td>
+      <td style="color:black;font-size:25px;width:200px;">{{nor.3}}</td>
+      <td style="color:black;font-size:25px;width:200px;">{{nor.4}}</td>
+      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id);" id={{nor.0}}/{{nor.3}} type="button" class="btn btn-secondary">Bajar</button></th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
