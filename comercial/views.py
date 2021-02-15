@@ -6,4 +6,5 @@ def home(request):
 	return HttpResponse('<h1>COMERCIAL</h1>')
 
 def otraVista(request):
+	print("tu vieja")
 	return HttpResponse('<h1>COMERCIAL</h1>')
