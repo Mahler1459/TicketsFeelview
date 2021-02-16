@@ -112,8 +112,8 @@ def distance(lat1, lng1, y1, y2,transformer):
 	c = 2 * atan2(sqrt(a), sqrt(1-a))
 	return 6371000*c
     
-def radCensalCercano(RadEsquina, lat, lng, transformer):
-	if distance(RadEsquina[0], RadEsquina[1], lat, lng,transformer) < 15000:
+def radCensalCercano(RadEsquina, lat, lng, transformer, radio):
+	if distance(RadEsquina[0], RadEsquina[1], lat, lng,transformer) < radio:
 		return True
     
 def radCoord(latlng,transformer):
@@ -124,7 +124,7 @@ def radCoord(latlng,transformer):
 	return coord
 
 #Funciona Buenos Aires, Catamarca
-def getRadioCensal(RADIOS, lat, lng):
+def getRadioCensal(RADIOS, lat, lng, radio):
 	radiosCensales = []
 	pobl = []
 	area = []
@@ -133,19 +133,19 @@ def getRadioCensal(RADIOS, lat, lng):
 	transformer = Transformer.from_crs(isn2004, wgs84)
 	for radCensal in RADIOS:
 		if type(radCensal['geometry']['coordinates'][0][0]) == list:
-			if radCensalCercano(radCensal['geometry']['coordinates'][0][0][0], lat, lng,transformer):
+			if radCensalCercano(radCensal['geometry']['coordinates'][0][0][0], lat, lng,transformer, radio):
 				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0][0],transformer))
 				pobl.append(radCensal['properties']['totalpobl'])
 				area.append(Polygon(radCensal['geometry']['coordinates'][0][0]).area)
 		else:
 			if radCensalCercano(radCensal['geometry']['coordinates'][0][0], lat, lng,transformer):
-				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0],transformer))
+				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0],transformer, radio))
 				pobl.append(radCensal['properties']['totalpobl'])
 				area.append(Polygon(radCensal['geometry']['coordinates'][0]).area)
 	return radiosCensales, pobl, area
 
 #Funciona CABA
-def getRadioCensal2(RADIOS, lat, lng):
+def getRadioCensal2(RADIOS, lat, lng, radio):
 	radiosCensales = []
 	pobl = []
 	area = []
@@ -154,12 +154,12 @@ def getRadioCensal2(RADIOS, lat, lng):
 	transformer = Transformer.from_crs(isn2004, wgs84)
 	for radCensal in RADIOS:
 		if type(radCensal['geometry']['coordinates'][0][0]) == list:
-			if radCensalCercano(radCensal['geometry']['coordinates'][0][0][0], lat, lng,transformer):
+			if radCensalCercano(radCensal['geometry']['coordinates'][0][0][0], lat, lng,transformer, radio):
 				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0][0],transformer))
 				pobl.append(radCensal['properties']['TOT_POB'])
 				area.append(Polygon(radCensal['geometry']['coordinates'][0][0]).area)
 		else:
-			if radCensalCercano(radCensal['geometry']['coordinates'][0][0], lat, lng,transformer):
+			if radCensalCercano(radCensal['geometry']['coordinates'][0][0], lat, lng,transformer, radio):
 				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0],transformer))
 			if radCensal['properties']['TOT_POB'] == None:
 				pobl.append(0.0)
@@ -185,13 +185,13 @@ def miMain(direccion, radio, api_key):
 
 	rapipagos = getNearby(['rapipago', 'pagofacil'], lat, lng, radio, [])
 	estaciones_de_servicio = getNearby(['estacion de servicio'], lat, lng, radio, ['gas_station'])
-	#sf = Reader(f'C:\\Users\\agust\\Desktop\\Octagon\\ticketsFeelview/comercial/Radios/{provincias[prov]}.shp')
+	#sf = Reader(f'/home/dr/ticketsFeelview/comercial/Radios/{provincias[prov]}.shp')
 	sf = Reader(f'C:\\Users\\agust\\Desktop\\Octagon\\ticketsFeelview/comercial/Radios/{provincias[prov]}.shp')
 	sfJSON = sf.__geo_interface__['features'] #convertir a JSON, me quedo solo con los datos
 	if prov == 'Buenos Aires':
-		radCensalesCercanos, poblacion, area = getRadioCensal2(sfJSON, lat, lng)
+		radCensalesCercanos, poblacion, area = getRadioCensal2(sfJSON, lat, lng, radio)
 	else:
-		radCensalesCercanos, poblacion, area = getRadioCensal(sfJSON, lat, lng)
+		radCensalesCercanos, poblacion, area = getRadioCensal(sfJSON, lat, lng, radio)
 	pobTot = sum(poblacion)
 	if len(cajeros)>0:
 		habxcaj = int(pobTot/len(cajeros))
