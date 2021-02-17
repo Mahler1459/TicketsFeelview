@@ -7,6 +7,9 @@ from statistics import median
 from math import sin, cos, atan2, sqrt, pi
 from pyproj import Transformer, CRS
 
+#path = '/home/dr/ticketsFeelview/comercial/Radios/'
+path = 'C:\\Users\\agust\\Desktop\\Octagon\\ticketsFeelview/comercial/Radios/'
+
 api_key = "AIzaSyBXug68S-1xipO5CFnaX5rVw4XygUxPX54"
 
 provincias = {
@@ -185,8 +188,8 @@ def miMain(direccion, radio, api_key):
 
 	rapipagos = getNearby(['rapipago', 'pagofacil'], lat, lng, radio, [])
 	estaciones_de_servicio = getNearby(['estacion de servicio'], lat, lng, radio, ['gas_station'])
-	#sf = Reader(f'/home/dr/ticketsFeelview/comercial/Radios/{provincias[prov]}.shp')
-	sf = Reader(f'C:\\Users\\agust\\Desktop\\Octagon\\ticketsFeelview/comercial/Radios/{provincias[prov]}.shp')
+
+	sf = Reader(f'{path}{provincias[prov]}.shp')
 	sfJSON = sf.__geo_interface__['features'] #convertir a JSON, me quedo solo con los datos
 	if prov == 'Buenos Aires':
 		radCensalesCercanos, poblacion, area = getRadioCensal2(sfJSON, lat, lng, radio)
