@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import busquedaSimpleForm
-from .funciones import miMain
+from .funciones import miMain, getServicioTecnico
 
 # Create your views here.
 def home(request):
-	return HttpResponse('<h1>COMERCIAL</h1>')
+	return render(request, 'comercial/comercial-home.html')
 
 def busquedaSimple(request):
 	# if this is a POST request we need to process the form data
@@ -35,3 +35,7 @@ def busquedaSimple(request):
 		form = busquedaSimpleForm()
 
 	return render(request, 'comercial/busqueda-simple.html', {'form': form})
+
+def servicioTecnico(request):
+	mapHTML = getServicioTecnico()
+	return render(request, 'comercial/servicio-tecnico.html', {'mapa': mapHTML[7:-9]})

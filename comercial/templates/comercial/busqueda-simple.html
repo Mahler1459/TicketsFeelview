@@ -1,10 +1,10 @@
-{% extends "tickets/base.html" %}
+{% extends "comercial/base.html" %}
 {% block content %}
-
+<div>
 <form action="/comercial/busqueda-simple/" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit">
 </form>
-
+</div>
 {% endblock content %}

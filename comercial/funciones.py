@@ -138,8 +138,8 @@ def getRadioCensal(RADIOS, lat, lng, radio):
 				pobl.append(radCensal['properties']['totalpobl'])
 				area.append(Polygon(radCensal['geometry']['coordinates'][0][0]).area)
 		else:
-			if radCensalCercano(radCensal['geometry']['coordinates'][0][0], lat, lng,transformer):
-				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0],transformer, radio))
+			if radCensalCercano(radCensal['geometry']['coordinates'][0][0], lat, lng,transformer, radio):
+				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0],transformer))
 				pobl.append(radCensal['properties']['totalpobl'])
 				area.append(Polygon(radCensal['geometry']['coordinates'][0]).area)
 	return radiosCensales, pobl, area
@@ -266,3 +266,30 @@ def miMain(direccion, radio, api_key):
 
 	mapHTML = gmap.get()
 	return mapHTML, data_locacion
+
+def getServicioTecnico():
+
+	gmap = GoogleMapPlotter(-33.876800, -64.611276, 6, apikey=api_key)
+
+	servicioTecnicoList = [
+		(-27.386631, -55.922307), #posadas
+		(-27.459286, -58.985561), #resistencia
+		(-27.484268, -58.819166), #corrientes
+		(-31.417894, -64.188853), #cordoba
+		(-32.953342, -60.670549), #rosario
+		(-32.887442, -68.848220), #mendoza
+		(-41.141376, -71.305771), #bariloche
+		(-38.948785, -68.051566), #neuquen
+		(-45.862832, -67.482980), #comodoro rivadavia
+		(-36.622799, -64.291040), #santa rosa
+		(-34.634315, -58.407165), #CABA
+		(-38.024436, -57.555790), #Mar del Plata
+		(-35.444645, -60.884653), #9 de Julio
+	]
+
+	for item in servicioTecnicoList:
+		gmap.circle(item[0], item[1], 200000, edge_alpha=0, color='#cccccc')
+
+
+	mapHTML = gmap.get()
+	return mapHTML
