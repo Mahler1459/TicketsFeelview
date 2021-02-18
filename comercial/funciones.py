@@ -37,6 +37,7 @@ provincias = {
 	'Salta':'Salta_con_datos',
 	'San Juan':'San_Juan_con_datos',
 	'San Luis':'San_Luis_con_datos',
+	'San Luis Province':'San_Luis_con_datos',
 	'Santa Cruz':'Santa_Cruz_con_datos',
 	'Santa Fe':'Santa_Fe_con_datos',
 	'Santiago del Estero':'Santiago_del_Estero_con_datos',
@@ -209,7 +210,7 @@ def miMain(direccion, radio, api_key):
 		'POBLACION':int(pobTot),
 		'CANTIDAD DE CAJEROS':len(cajeros),
 		'HABITANTES POR CAJERO':int(habxcaj),
-		'OPERACIONES POR CAJERO':int(habxcaj*0.5*0.2*3)
+		'OPERACIONES POR CAJERO':int(habxcaj*0.5*0.6*3.5)
 	}
 	'''
 	except:
@@ -296,3 +297,33 @@ def getServicioTecnico():
 
 	mapHTML = gmap.get()
 	return mapHTML
+
+def getSimulacion(transacciones, cajero):
+	operaciones = {}
+	comisiones = {}
+	resultados = {}
+
+	operaciones['Extracciones'] = int(transacciones*0.2)
+	operaciones['Prestamos'] = int(transacciones*0.023)
+	operaciones['Transferencias PtoP'] = int(transacciones*0.023)
+	operaciones['Otras Liquidaciones'] = int(transacciones*0.012)
+	operaciones['Pago de servicios'] = int(transacciones*0.018)
+	operaciones['Pago de convenios'] = int(transacciones*0.018)
+	operaciones['TOTAL'] = operaciones['Extracciones'] + operaciones['Prestamos'] + operaciones['Transferencias PtoP'] \
+	+ operaciones['Otras Liquidaciones'] + 	operaciones['Pago de servicios'] + operaciones['Pago de convenios']
+
+	comisiones['Extracciones'] = "$ 65"
+	comisiones['Prestamos'] = "3%"
+	comisiones['Transferencias PtoP'] = "$ 70"
+	comisiones['Otras Liquidaciones'] = "2%"
+	comisiones['Pago de servicios'] = "0,1%"
+	comisiones['Pago de convenios'] = "0,3%"
+
+	TotalAnual = 12 * (operaciones['Extracciones']*65 + operaciones['Prestamos']*20000*0.03 + \
+		operaciones['Transferencias PtoP']*70 + operaciones['Otras Liquidaciones']*20000*0.02 + \
+		operaciones['Pago de servicios']*15000*0.01 + operaciones['Pago de convenios']*15000*0.01)
+	resultados['Cajero'] = TotalAnual
+	resultados['Dueño'] = TotalAnual*0.2
+	resultados['Establecimiento'] = TotalAnual*0.3
+	resultados['Negocio Completo'] = TotalAnual*0.5
+	return operaciones, comisiones, resultados

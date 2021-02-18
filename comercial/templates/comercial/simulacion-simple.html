@@ -1,25 +1,6 @@
 {% extends "comercial/base.html" %}
+
 {% block content %}
-
-<div class="container-fluid">
-	<table class="table table-striped table-sm">	
-		<thead>
-			<th style="color:black;font-size:30px;" >Información</th>
-		</thead>	
-	  <tbody>
-	  	{% for key, value in data.items %}
-	    <tr>
-	      <td>{{key}}</td>
-	      <td>{{value}}</td>
-	     </tr>
-	    {% endfor %}
-	</table>
-</div>
-
-<div id="map" style="width: 800px; height: 400px;" />
-    {{ mapa|safe }}
-</div>
-
 <div class="container-fluid">
     <form id="simulacion-form">
         <div class="row">
@@ -77,14 +58,12 @@
     </table>
 </div>
 
-<input type="submit" class="btn btn-primary" value="Realizar simulación" />
 {% endblock content %}
+
 
 
 {% block javascript %}
 <script>
-	$("#simulacion-form")
-
     /*
         On submiting the form, send the POST ajax
         request to server and after successfull submission
@@ -147,31 +126,26 @@
                 $('#OtrasLiqui2').remove();
                 $('#PagoServ2').remove();
                 $('#PagoConv2').remove();
-                $('#Total').remove();
 
                 $("#tx_table tbody").prepend(
                     `<tr id=Extr2>
                     <td>Extracciones</td><td>${operaciones["Extracciones"]}</td>
                     </tr>
-                    <tr id=Prest2>
+                    <tr <tr id=Prest2>>
                     <td>Prestamos</td><td>${operaciones["Prestamos"]}</td>
                     </tr>
-                    <tr id=TranPtoP2>
+                    <tr <tr id=TranPtoP2>>
                     <td>Transferencias PtoP</td><td>${operaciones["Transferencias PtoP"]}</td>
                     </tr>
-                    <tr id=OtrasLiqui2>
+                    <tr <tr id=OtrasLiqui2>>
                     <td>Otras Liquidaciones</td><td>${operaciones["Otras Liquidaciones"]}</td>
                     </tr>
-                    <tr id=PagoServ2>
+                    <tr <tr id=PagoServ2>>
                     <td>Pago de servicios</td><td>${operaciones["Pago de servicios"]}</td>
                     </tr>
-                    <tr id=PagoConv2>
+                    <tr <tr id=PagoConv2>>
                     <td>Pago de convenios</td><td>${operaciones["Pago de convenios"]}</td>
-                    </tr>
-            		<tr id=Total>
-                	<td>TOTAL</td>
-                	<td>${operaciones["Pago de convenios"]}</td>
-            		</tr>`
+                    </tr>`
                 )
 
                 $('#Cajero').remove();
@@ -202,3 +176,8 @@
     })
 </script>
 {% endblock javascript %}
+
+    resultados['Cajero'] = 2781294
+    resultados['Dueño'] = 834388
+    resultados['Establecimiento'] = 417194
+    resultados['Negocio Completo'] = 1251582
