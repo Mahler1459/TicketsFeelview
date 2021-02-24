@@ -1,0 +1,34 @@
+{
+	"porcentajes":
+	{
+		"extracciones":1,
+		"prestamos":0.25,
+		"envio":0.1,
+		"otrliq":0.2,
+		"pserv":0.3,
+		"pconv":0.15,
+	},
+	"montos":
+	{
+		"extracciones":3500,
+		"prestamos":20000,
+		"envio":3500,
+		"otrliq":7000,
+		"pserv":1000,
+		"pconv":3000,
+	},
+	"comision":
+	{
+		"extracciones":65,
+		"prestamos":0.3,
+		"envio":70,
+		"otrliq":0.2,
+		"pserv":0.1,
+		"pconv":0.3,
+	},
+	"datos":
+	{
+		"edad":0.5,
+		"bancarizados":0.6,
+	}
+}

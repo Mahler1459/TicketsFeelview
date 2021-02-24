@@ -10,7 +10,21 @@ import email
 import traceback 
 
 def index(request):
+
 	return HttpResponse("Hello, world. You're at the polls index.")
+
+def porCajero(request,id):
+	data = []
+	for item in Ticket.objects.filter(Terminal=id):
+		temp=[]
+		temp.append(item.Terminal)
+		temp.append(item.Fecha)
+		temp.append(item.Hora)
+		temp.append(item.Evento)
+		temp.append(item.Locacion)
+		data.append(temp)
+	return  render(request, 'tickets/porcajero.html',{'data': data})
+	#return  render(request, 'tickets/por-cajero.html',{'normal': normal})
 
 def delete(request,caj,eve):
 	tick = Ticket.objects.filter(Terminal=caj, Status="ALERTA", Evento=eve)
@@ -63,49 +77,6 @@ def semaforo(request):
 			temp.append(item.Evento)
 			temp.append(item.Locacion)
 			normal.append(temp)
-
-			'''
-			Errores
-				Carbinet door (panel superior)
-
-				               Warnings:
-
-				Panel Superior Abierto
-				Fallas:
-
-				               1.  Error de Panel Superior
-
-				Receipt printer(impresora)
-
-				               Warnings:
-
-									Poco Papel en Impresora
-									Sin Papel en Impresora
-								Fallas:
-
-									Error de Impresora
-									Atasco de Papel en Impresora
-									Safe Door (bóveda)
-
-								Warnings:
-
-								Bóveda Abierta
-								Fallas:
-
-				               1.  Error de Bóveda
-
-				Cassette(caseteras)
-
-				               Warnings:
-
-				                              1.  Pocos Billetes en Casetera
-
-				               Fallas:
-
-				                              1.  Sin Billetes en Casetera
-
-				                              2. Error de Caseteras
-			'''
 
 	return  render(request, 'tickets/semaforo.html',{'normal': normal, 'error': error, 'warning': warning})
 

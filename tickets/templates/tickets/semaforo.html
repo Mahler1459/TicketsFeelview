@@ -56,7 +56,7 @@
   <tbody  class="bg-warning">
 	{% for war in warning %}
     <tr>
-      <th style="color:black;font-size:25px;width:140px;" scope="row">{{war.0}}</th>
+      <th style="color:black;font-size:25px;width:140px;" scope="row"> <button id="{{war.0}}" onclick="myFunction(this.id)">{{war.0}}</button> </th>
       <td style="color:black;font-size:25px;width:120px;">{{war.1}}</td>
       <td style="color:black;font-size:25px;width:120px;">{{war.2}}</td>
       <td style="color:black;font-size:25px;width:200px;">{{war.3}}</td>
@@ -94,5 +94,21 @@
     {% endfor %}
   </tbody>
 </table>
-
 {% endblock content %}
+
+{% block javascript %}
+<script>
+  /*
+    On submiting the form, send the POST ajax
+    request to server and after successfull submission
+    display the object.
+  */
+  function myFunction(id) {
+    console.log(id)
+    
+    link = '/semaforo/porcajero/' + id + '/'
+    console.log(link)
+    location.replace(link)
+  }
+</script>
+{% endblock javascript %}

@@ -1,0 +1,30 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+<table align="center" style="width:1500px;" class="table table-hover table-bordered table-sm">
+  <thead>
+    <th style="color:black;font-size:30px;" scope="col" colspan="6">Normales</th>
+  </thead>
+  <thead class="thead-dark">
+    <tr>
+      <th style="color:white;font-size:25px;width:140px;" scope="col"># Cajero</th>
+      <th style="color:white;font-size:25px;width:120px;" scope="col">Fecha</th>
+      <th style="color:white;font-size:25px;width:120px;" scope="col">Hora</th>
+      <th style="color:white;font-size:25px;width:200px;" scope="col">Evento</th>
+      <th style="color:white;font-size:25px;width:200px;" scope="col">Locación</th>
+      <th style="color:white;font-size:25px;width:200px" scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody class="bg-success">
+  {% for nor in data %}
+    <tr>
+      <th style="color:black;font-size:25px;width:140px;" scope="row">{{nor.0}}</th>
+      <td style="color:black;font-size:25px;width:120px;">{{nor.1}}</td>
+      <td style="color:black;font-size:25px;width:120px;">{{nor.2}}</td>
+      <td style="color:black;font-size:25px;width:200px;">{{nor.3}}</td>
+      <td style="color:black;font-size:25px;width:200px;">{{nor.4}}</td>
+      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id);" id={{nor.0}}/{{nor.3}} type="button" class="btn btn-secondary">Bajar</button></th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

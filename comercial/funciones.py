@@ -294,7 +294,6 @@ def getServicioTecnico():
 	for item in servicioTecnicoList:
 		gmap.circle(item[0], item[1], 200000, edge_alpha=0, color='#cccccc')
 
-
 	mapHTML = gmap.get()
 	return mapHTML
 
