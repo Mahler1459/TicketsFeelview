@@ -2,3 +2,4 @@ ticketsFeelview/settings.py
 venv
 db.sqlite3
 static
+requirements.txt

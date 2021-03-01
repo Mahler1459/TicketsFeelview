@@ -7,6 +7,7 @@ from statistics import median
 from math import sin, cos, atan2, sqrt, pi
 from pyproj import Transformer, CRS
 
+
 #path = '/home/dr/ticketsFeelview/comercial/Radios/'
 path = 'C:/Users/agust/Desktop/Octagon/ticketsFeelview/comercial/Radios/'
 #path = '/comercial/Radios/'
@@ -147,7 +148,7 @@ def getRadioCensal(RADIOS, lat, lng, radio):
 				pobl.append(radCensal['properties']['totalpobl'])
 				area.append(Polygon(radCensal['geometry']['coordinates'][0]).area)
 	return radiosCensales, pobl, area
-
+'''
 #Funciona CABA
 def getRadioCensal2(RADIOS, lat, lng, radio):
 	radiosCensales = []
@@ -169,19 +170,31 @@ def getRadioCensal2(RADIOS, lat, lng, radio):
 				pobl.append(0.0)
 			else:
 				pobl.append(radCensal['properties']['TOT_POB'])
-			area.append(Polygon(radCensal['geometry']['coordinates'][0]).area)
+				area.append(Polygon(radCensal['geometry']['coordinates'][0]).area)
+	return radiosCensales, pobl, area
+'''
+def getRadioCensal2(RADIOS, lat, lng, radio):
+	radiosCensales = []
+	pobl = []
+	area = []
+	isn2004=CRS("+proj=tmerc +lat_0=-90 +lon_0=-66 +k=1 +x_0=3500000 +y_0=0 +ellps=WGS84 +units=m +no_defs") 
+	wgs84=CRS("EPSG:4326")
+	transformer = Transformer.from_crs(isn2004, wgs84)
+	for radCensal in RADIOS:
+		if type(radCensal['geometry']['coordinates'][0][0]) == list:
+			if radCensalCercano(radCensal['geometry']['coordinates'][0][0][0], lat, lng,transformer,radio):
+				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0][0],transformer))
+				pobl.append(radCensal['properties']['TOT_POB'])
+				area.append(Polygon(radCensal['geometry']['coordinates'][0][0]).area)
+		else:
+			if radCensalCercano(radCensal['geometry']['coordinates'][0][0], lat, lng,transformer,radio):
+				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0],transformer))
+				pobl.append(radCensal['properties']['TOT_POB'])
+				area.append(Polygon(radCensal['geometry']['coordinates'][0]).area)
 	return radiosCensales, pobl, area
 
 def miMain(direccion, radio, api_key):
-    
-	from requests import get
-	from urllib.parse import urlencode
-	from gmplot import GoogleMapPlotter
-	from shapefile import Reader
-	from shapely.geometry import Polygon
-	from statistics import median
-	from math import sin, cos, atan2, sqrt, pi
-	from pyproj import Transformer, CRS
+
 	res = extract_lat_lng(direccion, api_key)
 	lat, lng = res['lat'],res['lng']
 	num, calle, loc, prov = res['num'], res['calle'], res['loc'], res['prov']
@@ -296,33 +309,3 @@ def getServicioTecnico():
 
 	mapHTML = gmap.get()
 	return mapHTML
-
-def getSimulacion(transacciones, cajero):
-	operaciones = {}
-	comisiones = {}
-	resultados = {}
-
-	operaciones['Extracciones'] = int(transacciones*0.2)
-	operaciones['Prestamos'] = int(transacciones*0.023)
-	operaciones['Transferencias PtoP'] = int(transacciones*0.023)
-	operaciones['Otras Liquidaciones'] = int(transacciones*0.012)
-	operaciones['Pago de servicios'] = int(transacciones*0.018)
-	operaciones['Pago de convenios'] = int(transacciones*0.018)
-	operaciones['TOTAL'] = operaciones['Extracciones'] + operaciones['Prestamos'] + operaciones['Transferencias PtoP'] \
-	+ operaciones['Otras Liquidaciones'] + 	operaciones['Pago de servicios'] + operaciones['Pago de convenios']
-
-	comisiones['Extracciones'] = "$ 65"
-	comisiones['Prestamos'] = "3%"
-	comisiones['Transferencias PtoP'] = "$ 70"
-	comisiones['Otras Liquidaciones'] = "2%"
-	comisiones['Pago de servicios'] = "0,1%"
-	comisiones['Pago de convenios'] = "0,3%"
-
-	TotalAnual = 12 * (operaciones['Extracciones']*65 + operaciones['Prestamos']*20000*0.03 + \
-		operaciones['Transferencias PtoP']*70 + operaciones['Otras Liquidaciones']*20000*0.02 + \
-		operaciones['Pago de servicios']*15000*0.01 + operaciones['Pago de convenios']*15000*0.01)
-	resultados['Cajero'] = TotalAnual
-	resultados['Dueño'] = TotalAnual*0.2
-	resultados['Establecimiento'] = TotalAnual*0.3
-	resultados['Negocio Completo'] = TotalAnual*0.5
-	return operaciones, comisiones, resultados

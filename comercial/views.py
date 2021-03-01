@@ -2,7 +2,7 @@ from django.core import serializers
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .forms import busquedaSimpleForm, simulacionSimpleForm
-from .funciones import miMain, getServicioTecnico, getSimulacion
+from .funciones import miMain, getServicioTecnico
 from .simulacion import getSimulacion2
 import json
 # Create your views here.

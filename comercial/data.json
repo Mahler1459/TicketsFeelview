@@ -19,7 +19,7 @@
 	
 	"nombres":["Extracciones", "Pr&#233stamos", "Env&#237o de Dinero", "Otras Liquidaciones", "Pago de Servicios", "Pago de Convenios"],
 
-	"porNegocio":["30", "20", "100"],
+	"porNegocio":["30", "20", "50"],
 	
 	"datos":
 	{
