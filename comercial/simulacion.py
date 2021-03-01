@@ -1,44 +1,37 @@
 import json
 
-#path = '/home/dr/ticketsFeelview/comercial/Radios/'
+#path = '/home/dr/ticketsFeelview/comercial/'
 path = 'C:/Users/agust/Desktop/Octagon/ticketsFeelview/comercial/'
 
 def getSimulacion2(transacciones, cajero):
 	with open(f"{path}data.json", "r") as read_file:
 		data = json.load(read_file)
 
-	print(data)
-	operaciones = {}
-	comisiones = {}
+	#print(data)
+	#operaciones : cantidad de operaciones
+	#comisiones : lo que se cobra en comisiones
+	#
 	resultados = {}
+	#falta multiplicar por dispensador y reciclador
+
+	nombres = data["nombres"]
+	if cajero == 'Dispensador':
+		comisiones = \
+		[int(a*b*c*d*transacciones) for a,b,c,d in zip(data["porcentajes"],data["montos_com_disp"],data["comisiones_disp"],data["op_disp"])]
+		operaciones = [int(transacciones * a * b) for a,b in zip(data["porcentajes"],data["op_disp"])]
+		monto = data["montos_vault_disp"]
+	else:
+		comisiones = \
+		[int(a*b*c*d*transacciones) for a,b,c,d in zip(data["porcentajes"],data["montos_com_rec"],data["comisiones_rec"],data["op_rec"])]
+		operaciones = [int(transacciones * a * b) for a,b in zip(data["porcentajes"],data["op_rec"])]
+		monto = data["montos_vault_rec"]
+	totalComisiones = sum(comisiones)
+	totalOperaciones = sum(operaciones)
+	porcentaje = [round(a/totalComisiones*100,1) for a in comisiones]
+	TotalAnual = 12*sum(comisiones)
+	resultados['Inversor'] = "{:,}".format(int(TotalAnual*0.3)).replace(",",".")
+	resultados['Establecimiento'] = "{:,}".format(int(TotalAnual*0.2)).replace(",",".")
+	resultados['Negocio Completo'] = "{:,}".format(int(TotalAnual*0.5)).replace(",",".")
 	
-	operaciones['extracciones'] = int(transacciones*0.2)
-	operaciones['prestamos'] = int(transacciones*0.023)
-	operaciones['envio'] = int(transacciones*0.023)
-	operaciones['otrliq'] = int(transacciones*0.012)
-	operaciones['pserv'] = int(transacciones*0.018)
-	operaciones['pcomv'] = int(transacciones*0.018)
-
-	operaciones['TOTAL'] = operaciones['extracciones'] + \
-		operaciones['prestamos'] + operaciones['envio'] + \
-		operaciones['otrliq'] + operaciones['pserv'] + operaciones['pcomv']
-
-	comisiones['extracciones'] = f"$ {data['comisiones']['extracciones']}"
-	comisiones['prestamos'] = f"{data['comisiones']['prestamos']} %"
-	comisiones['envio'] = f"$ {data['comisiones']['envio']}"
-	comisiones['otrliq'] = f"{data['comisiones']['otrliq']} %"
-	comisiones['pserv'] = f"{data['comisiones']['pserv']} %"
-	comisiones['pcomv'] = f"{data['comisiones']['pconv']} %"
-
-	TotalAnual = 12 * (operaciones['Extracciones']*data['comisiones']['extracciones'] + \
-		operaciones['prestamos']*data['monto']['prestamos']*data['comisiones']['prestamos'] + \
-		operaciones['envio']*data['comisiones']['envio'] + \
-		operaciones['otrliq']*data['monto']['otrliq']*data['comisiones']['otrliq'] + \
-		operaciones['pserv']*data['monto']['pserv']*data['comisiones']['pserv'] + \
-		operaciones['Pago de convenios']*data['monto']['pconv']*data['comisiones']['pserv'])
-	
-	resultados['Cajero'] = TotalAnual
-	resultados['Dueño'] = TotalAnual*0.2
-	resultados['Establecimiento'] = TotalAnual*0.3
-	resultados['Negocio Completo'] = TotalAnual*0.5
-	return operaciones, comisiones, resultados
+	return operaciones, comisiones, resultados, nombres, "{:,}".format(totalOperaciones).replace(",","."),\
+	 data["porNegocio"], monto, porcentaje, "{:,}".format(totalComisiones).replace(",",".")

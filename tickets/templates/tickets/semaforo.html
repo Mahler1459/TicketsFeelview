@@ -29,7 +29,7 @@
   <tbody class="bg-danger">
   	{% for err in error %}
     <tr>
-      <th style="color:black;font-size:25px;width:140px;" scope="row">{{err.0}}</th>
+      <th style="color:black;font-size:25px;width:140px;" scope="row"> <button id="{{err.0}}" onclick="myFunction(this.id)">{{err.0}}</button> </th>
       <td style="color:black;font-size:25px;width:120px;">{{err.1}}</td>
       <td style="color:black;font-size:25px;width:120px;">{{err.2}}</td>
       <td style="color:black;font-size:25px;width:200px;">{{err.3}}</td>
@@ -84,7 +84,7 @@
   <tbody class="bg-success">
 	{% for nor in normal %}
     <tr>
-      <th style="color:black;font-size:25px;width:140px;" scope="row">{{nor.0}}</th>
+      <th style="color:black;font-size:25px;width:140px;" scope="row"> <button id="{{nor.0}}" onclick="myFunction(this.id)">{{nor.0}}</button> </th>
       <td style="color:black;font-size:25px;width:120px;">{{nor.1}}</td>
       <td style="color:black;font-size:25px;width:120px;">{{nor.2}}</td>
       <td style="color:black;font-size:25px;width:200px;">{{nor.3}}</td>

@@ -50,12 +50,16 @@ def postCalculo(request):
 	if request.is_ajax and request.method == "POST":
 	# get the form data
 		form = simulacionSimpleForm(request.POST)
-		print(form)
 	# save the data and after fetch the object in instance
 		if form.is_valid():
-			operaciones, comisiones, resultados = getSimulacion2(form.cleaned_data['transacciones'],form.cleaned_data['cajero'])
+			operaciones, comisiones, resultados, nombres, totalOperaciones, porNegocio, monto, porcentajes, totalComisiones\
+			 = getSimulacion2(form.cleaned_data['transacciones'],form.cleaned_data['cajero'])
+
+			op = ["{:,}".format(a).replace(",",".") for a in operaciones]
+			com = ["{:,}".format(a).replace(",",".") for a in comisiones]
+			mon = ["{:,}".format(a).replace(",",".") for a in monto]
 			# serialize in new friend object in json
-			ser_instance = json.dumps([comisiones,operaciones,resultados])
+			ser_instance = json.dumps([com, op, resultados, nombres, totalOperaciones, porNegocio, mon, porcentajes, totalComisiones])
 			# send to client side.
 			return JsonResponse({"instance": ser_instance}, status=200)
 		else:

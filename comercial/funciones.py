@@ -8,8 +8,8 @@ from math import sin, cos, atan2, sqrt, pi
 from pyproj import Transformer, CRS
 
 #path = '/home/dr/ticketsFeelview/comercial/Radios/'
-path = 'C:\\Users\\agust\\Desktop\\Octagon\\ticketsFeelview/comercial/Radios/'
-
+path = 'C:/Users/agust/Desktop/Octagon/ticketsFeelview/comercial/Radios/'
+#path = '/comercial/Radios/'
 api_key = "AIzaSyBXug68S-1xipO5CFnaX5rVw4XygUxPX54"
 
 provincias = {
