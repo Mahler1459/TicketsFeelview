@@ -4,19 +4,17 @@
 <div class="container-fluid">
     <form id="simulacion-form">
         <div class="row">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class="form-group col-4">
-                <label class="col-12">{{ field.label }}</label>
-                {{ field }}
-            </div>
-            {% endfor %}
-            <input type="submit" class="btn btn-primary" value="Simular" />
+    {% csrf_token %}
+    {{ form.as_p }}
+            
         </div>
     <form>
+        <div  style="padding: 5px;">
+        <input type="submit" class="btn btn-primary" value="Simular" />
+    </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid table-padded">
     <table class="table table-striped table-sm" id="tx_table">
         <thead>
             <tr>
@@ -33,9 +31,13 @@
     </table>
 </div>
 
-<div class="container-fluid">
-    <table class="table table-striped table-sm" id="res_table">
-        <thead>Resultados
+<div id="mid_div" class="table-padded">
+    
+</div>
+
+<div class="container-fluid" style="padding: 5px;">
+    <table class="table table-striped table-sm" style="font-size: 20px;" id="res_table">
+        <thead>
 
             <tr>
                 <th>Negocio</th>
@@ -86,13 +88,21 @@
                 montos = fields[6]
                 porcentaje = fields[7]
                 totalComisiones = fields[8]
+                vault = fields[9]
 
                 $("#tx_table tbody tr").remove();
                 $("#tx_table tbody").prepend(
                 `<tr id=${nombres[i]}>
-                    <td>TOTAL</td><td class="number-separator">${totalOperaciones}</td>
-                    <td class="number-separator"></td><td class="number-separator">${totalComisiones}</td>
-                    <td class="number-separator"></td>  
+                    <td><b>TOTAL<b></td><td class="number-separator"><b>${totalOperaciones}<b></td>
+                    <td class="number-separator"></td><td class="number-separator"><b>${totalComisiones}<b></td>
+                    <td class="number-separator"></td> 
+                    </tr>`
+                    )
+
+                $("#mid_div tr").remove();
+                $("#mid_div").prepend(
+                `<tr id=${vault}>
+                    <td><b>Vault Cash Mensual:<b></td><td class="number-separator">${vault}</td>
                     </tr>`
                     )
 

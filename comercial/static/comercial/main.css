@@ -12,6 +12,9 @@ ul {
   margin: 0;
 }
 
+.table-padded {
+  padding: 5px;
+}
 .bg-steel {
   background-color: #5f788a;
 }
@@ -40,7 +43,7 @@ ul {
   color: #444444;
 }
 
-a.article-title:hover {
+.article-title:hover {
   color: #428bca;
   text-decoration: none;
 }
@@ -82,3 +85,7 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.big-table {
+  font-size: 30px;
+  }

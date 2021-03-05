@@ -19,6 +19,7 @@
 <div id="map" style="width: 800px; height: 400px;" />
     {{ mapa|safe }}
 </div>
+</div>
 
 <div class="container-fluid">
     <form id="simulacion-form">
@@ -108,12 +109,13 @@
                 montos = fields[6]
                 porcentaje = fields[7]
                 totalComisiones = fields[8]
+                vault = fields[9]
 
                 $("#tx_table tbody tr").remove();
                 $("#tx_table tbody").prepend(
                 `<tr id=${nombres[i]}>
-                    <td>TOTAL</td><td class="number-separator">${totalOperaciones}</td>
-                    <td class="number-separator"></td><td class="number-separator">${totalComisiones}</td>
+                    <td><b>TOTAL<b></td><td class="number-separator"><b>${totalOperaciones}<b></td>
+                    <td class="number-separator"></td><td class="number-separator"><b>${totalComisiones}<b></td>
                     <td class="number-separator"></td>  
                     </tr>`
                     )
@@ -148,7 +150,7 @@
             },
             error: function (response) {
                 // alert the error if any error occured
-                alert(response["responseJSON"]["error"]);
+                //alert(response["responseJSON"]["error"]);
             }
         })
     })

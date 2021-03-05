@@ -17,7 +17,6 @@ def busquedaSimple(request):
 		# check whether it's valid:
 		if form.is_valid():	
 			#acá tengo que hacer todo para leer el mapa
-			nombre = form.cleaned_data['nombre']
 			direccion = form.cleaned_data['direccion']
 			ciudad = form.cleaned_data['ciudad']
 			provincia = form.cleaned_data['provincia']
@@ -26,6 +25,8 @@ def busquedaSimple(request):
 			mapHTML, data_locacion = miMain(f'{direccion} {ciudad}', radio, api_key)
 
 		opxcaj = data_locacion['OPERACIONES POR CAJERO']
+		if opxcaj == 'N/A':
+			opxcaj = 1000
 		form = simulacionSimpleForm(initial={'transacciones':int(opxcaj*0.2)})
 		return render(request, 'comercial/busqueda-simple-resultado.html', {'mapa': mapHTML[7:-9], 'data':data_locacion, 'form':form})
 		# if a GET (or any other method) we'll create a blank form
@@ -52,14 +53,15 @@ def postCalculo(request):
 		form = simulacionSimpleForm(request.POST)
 	# save the data and after fetch the object in instance
 		if form.is_valid():
-			operaciones, comisiones, resultados, nombres, totalOperaciones, porNegocio, monto, porcentajes, totalComisiones\
-			 = getSimulacion2(form.cleaned_data['transacciones'],form.cleaned_data['cajero'])
+			operaciones, comisiones, resultados, nombres, totalOperaciones, porNegocio, monto, porcentajes, totalComisiones,\
+			vault = getSimulacion2(form.cleaned_data['transacciones'],form.cleaned_data['cajero'])
 
 			op = ["{:,}".format(a).replace(",",".") for a in operaciones]
 			com = ["{:,}".format(a).replace(",",".") for a in comisiones]
 			mon = ["{:,}".format(a).replace(",",".") for a in monto]
 			# serialize in new friend object in json
-			ser_instance = json.dumps([com, op, resultados, nombres, totalOperaciones, porNegocio, mon, porcentajes, totalComisiones])
+			ser_instance = json.dumps([com, op, resultados, nombres, totalOperaciones, \
+				porNegocio, mon, porcentajes, totalComisiones, vault])
 			# send to client side.
 			return JsonResponse({"instance": ser_instance}, status=200)
 		else:

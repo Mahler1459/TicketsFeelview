@@ -116,7 +116,7 @@ def distance(lat1, lng1, y1, y2,transformer):
 	cos(x1*pi/180)*cos(y1*pi/180)*sin((y2*pi/180-x2*pi/180)/2)**2
 	c = 2 * atan2(sqrt(a), sqrt(1-a))
 	return 6371000*c
-    
+
 def radCensalCercano(RadEsquina, lat, lng, transformer, radio):
 	if distance(RadEsquina[0], RadEsquina[1], lat, lng,transformer) < radio:
 		return True
@@ -148,31 +148,7 @@ def getRadioCensal(RADIOS, lat, lng, radio):
 				pobl.append(radCensal['properties']['totalpobl'])
 				area.append(Polygon(radCensal['geometry']['coordinates'][0]).area)
 	return radiosCensales, pobl, area
-'''
-#Funciona CABA
-def getRadioCensal2(RADIOS, lat, lng, radio):
-	radiosCensales = []
-	pobl = []
-	area = []
-	isn2004=CRS("+proj=tmerc +lat_0=-90 +lon_0=-66 +k=1 +x_0=3500000 +y_0=0 +ellps=WGS84 +units=m +no_defs") 
-	wgs84=CRS("EPSG:4326")
-	transformer = Transformer.from_crs(isn2004, wgs84)
-	for radCensal in RADIOS:
-		if type(radCensal['geometry']['coordinates'][0][0]) == list:
-			if radCensalCercano(radCensal['geometry']['coordinates'][0][0][0], lat, lng,transformer, radio):
-				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0][0],transformer))
-				pobl.append(radCensal['properties']['TOT_POB'])
-				area.append(Polygon(radCensal['geometry']['coordinates'][0][0]).area)
-		else:
-			if radCensalCercano(radCensal['geometry']['coordinates'][0][0], lat, lng,transformer, radio):
-				radiosCensales.append(radCoord(radCensal['geometry']['coordinates'][0],transformer))
-			if radCensal['properties']['TOT_POB'] == None:
-				pobl.append(0.0)
-			else:
-				pobl.append(radCensal['properties']['TOT_POB'])
-				area.append(Polygon(radCensal['geometry']['coordinates'][0]).area)
-	return radiosCensales, pobl, area
-'''
+
 def getRadioCensal2(RADIOS, lat, lng, radio):
 	radiosCensales = []
 	pobl = []
@@ -222,8 +198,8 @@ def miMain(direccion, radio, api_key):
 		'LATITUD y LONGITUD':f'{round(lat,7)},{round(lng,7)}',
 		'POBLACION':int(pobTot),
 		'CANTIDAD DE CAJEROS':len(cajeros),
-		'HABITANTES POR CAJERO':int(habxcaj),
-		'OPERACIONES POR CAJERO':int(habxcaj*0.5*0.6*3.5)
+		'HABITANTES POR CAJERO':habxcaj if habxcaj is not 'N/A' else pobTot,
+		'OPERACIONES POR CAJERO':int(habxcaj*0.5*0.6*3.5) if habxcaj is not 'N/A' else 'N/A'
 	}
 	'''
 	except:
