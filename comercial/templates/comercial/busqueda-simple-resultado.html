@@ -16,7 +16,7 @@
 	</table>
 </div>
 
-<div id="map" style="width: 800px; height: 400px;" />
+<div id="map" style="width: 100%; height: 400px;" />
     {{ mapa|safe }}
 </div>
 </div>
@@ -36,15 +36,15 @@
     <form>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid table-padded">
     <table class="table table-striped table-sm" id="tx_table">
         <thead>
             <tr>
-                <th>Tipo de Operacion</th>
-                <th>Cantidad Mensual</th>
-                <th>Operación Promedio ($)</th>
-                <th>Comisiones Mensuales ($)</th>
-                <th>% del Ingreso Total</th>
+                <th>Tipo de<br>Operacion</th>
+                <th>Cantidad<br>Mensual</th>
+                <th>Operación<br>Promedio ($)</th>
+                <th>Comisiones<br>Mensuales ($)</th>
+                <th>% del Ingreso<br>Total</th>
             </tr>
         </thead>
         <tbody>
@@ -53,9 +53,14 @@
     </table>
 </div>
 
-<div class="container-fluid">
-    <table class="table table-striped table-sm" id="res_table">
-        <thead>Resultados
+<div id="mid_div" class="table-padded">
+    
+</div>
+
+<div class="container-fluid" style="padding: 5px;">
+    <table class="table table-striped table-sm" style="font-size: 20px;" id="res_table">
+        <thead>
+
             <tr>
                 <th>Negocio</th>
                 <th>Resultado Anual</th>
@@ -74,7 +79,6 @@
 
 {% block javascript %}
 <script>
-	$("#simulacion-form")
 
     /*
         On submiting the form, send the POST ajax
@@ -87,7 +91,7 @@
         // serialize the data for sending the form data.
         var serializedData = $(this).serialize();
         // make POST ajax call
-        $.ajax({
+         $.ajax({
             type: 'POST',
             url: "{% url 'post-calculo' %}",
             data: serializedData,
@@ -116,10 +120,17 @@
                 `<tr id=${nombres[i]}>
                     <td><b>TOTAL<b></td><td class="number-separator"><b>${totalOperaciones}<b></td>
                     <td class="number-separator"></td><td class="number-separator"><b>${totalComisiones}<b></td>
-                    <td class="number-separator"></td>  
+                    <td class="number-separator"></td> 
                     </tr>`
                     )
-                
+
+                $("#mid_div tr").remove();
+                $("#mid_div").prepend(
+                `<tr id=${vault}>
+                    <td><b>Vault Cash Mensual:<b></td><td class="number-separator">${vault}</td>
+                    </tr>`
+                    )
+
                 var i;
                 for (i = operaciones.length-1; i >= 0 ; i--) {
                     $("#tx_table tbody").prepend(
@@ -150,7 +161,7 @@
             },
             error: function (response) {
                 // alert the error if any error occured
-                //alert(response["responseJSON"]["error"]);
+                alert(response["responseJSON"]["error"]);
             }
         })
     })
