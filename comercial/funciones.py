@@ -185,7 +185,8 @@ def miMain(direccion, radio, api_key):
 		radCensalesCercanos, poblacion, area = getRadioCensal2(sfJSON, lat, lng, radio)
 	else:
 		radCensalesCercanos, poblacion, area = getRadioCensal(sfJSON, lat, lng, radio)
-	pobTot = sum(poblacion)
+	pob = [i for i in poblacion if i] 
+	pobTot = sum(pob)
 	if len(cajeros)>0:
 		habxcaj = int(pobTot/len(cajeros))
 	else:
