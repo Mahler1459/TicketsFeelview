@@ -29,7 +29,7 @@ def getSimulacion2(transacciones, cajero):
 		interv = data["int_rec"]
 		por = data["por_rec"]
 
-	vault = "$ {:,}".format(sum([ m*op for m,op in zip(monto, operaciones)])).replace(",",".")
+	vault = "$ {:,}".format(int(sum([ m*op for m,op in zip(monto, operaciones)])/30)).replace(",",".")
 	totalComisiones = sum(comisiones)
 	totalOperaciones = sum(operaciones)
 
@@ -48,7 +48,7 @@ def getSimulacion2(transacciones, cajero):
 	resultados['Establecimiento'] = 	"$ {:,}".format(int(TotalAnual*mult)).replace(",",".")
 	resultados['Negocio Completo'] = 	"$ {:,}".format(int(TotalAnual*(0.3+mult))).replace(",",".")
 
-	porNegocio = ["{:,}".format(0.3).replace(",","."), "{:,}".format(mult).replace(",","."), "{:,}".format(round(1-(0.3+mult),2)).replace(",",".")]
+	porNegocio = ["{:,}".format(int(100*0.3)).replace(",","."), "{:,}".format(int(100*mult)).replace(",","."), "{:,}".format(round(100*(1-(0.3+mult)))).replace(",",".")]
 	
 	return operaciones, comisiones, resultados, nombres, "{:,}".format(totalOperaciones).replace(",","."),\
 	 porNegocio, monto, porcentaje, "{:,}".format(totalComisiones).replace(",","."), vault
