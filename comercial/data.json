@@ -19,7 +19,11 @@
 	
 	"nombres":["Extracciones", "Pr&#233stamos", "Env&#237o de Dinero", "Otras Liquidaciones", "Pago de Servicios", "Pago de Convenios"],
 
-	"porNegocio":["30", "20", "50"],
+	"por_disp":	[0.20,0.25,0.30],
+	"int_disp":		[1500,2500],
+
+	"por_rec":	[0.15,0.20,0.25],
+	"int_rec":		[2500,5000],
 	
 	"datos":
 	{
