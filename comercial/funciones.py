@@ -36,6 +36,7 @@ provincias = {
 	'Río Negro':'Rio_Negro_con_datos',
 	'Rio Negro':'Rio_Negro_con_datos',
 	'Salta':'Salta_con_datos',
+	'Salta Province':'Salta_con_datos',
 	'San Juan':'San_Juan_con_datos',
 	'San Luis':'San_Luis_con_datos',
 	'San Luis Province':'San_Luis_con_datos',
