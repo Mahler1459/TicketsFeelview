@@ -4,9 +4,9 @@
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script>
-          function call_counter(url, id) {
-              window.open('/delete/'+id+'/', "_self");
-              jQuery.get('/delete/'+id+'/', function (data) {
+          function call_counter(url, id, dat) {
+              window.open('/delete/'+id+'/'+dat+'/', "_self");
+              jQuery.get('/delete/'+id+'/'+dat+'/', function (data) {
                   alert("counter updated!");
               });
           }
@@ -34,7 +34,7 @@
       <td style="color:black;font-size:25px;width:120px;">{{err.2}}</td>
       <td style="color:black;font-size:25px;width:200px;">{{err.3}}</td>
       <td style="color:black;font-size:25px;width:200px;">{{err.4}}</td>
-      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id);" id={{err.0}}/{{err.3}} type="button" class="btn btn-secondary">Bajar</button></th>
+      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id, name);" id={{err.0}}/{{err.3}} type="button" class="btn btn-secondary">Bajar</button></th>
     </tr>
     {% endfor %}
 </table>
@@ -61,7 +61,7 @@
       <td style="color:black;font-size:25px;width:120px;">{{war.2}}</td>
       <td style="color:black;font-size:25px;width:200px;">{{war.3}}</td>
       <td style="color:black;font-size:25px;width:200px;">{{war.4}}</td>
-      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id);" id={{war.0}}/{{war.3}} type="button" class="btn btn-secondary">Bajar</button></th>
+      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id, name);" id={{war.0}} name={{war.3}} type="button" class="btn btn-secondary">Bajar</button></th>
     </tr>
     {% endfor %}
   </tbody>
@@ -89,7 +89,7 @@
       <td style="color:black;font-size:25px;width:120px;">{{nor.2}}</td>
       <td style="color:black;font-size:25px;width:200px;">{{nor.3}}</td>
       <td style="color:black;font-size:25px;width:200px;">{{nor.4}}</td>
-      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id);" id={{nor.0}}/{{nor.3}} type="button" class="btn btn-secondary">Bajar</button></th>
+      <th style="color:black;font-size:25px;width:200px;"> <button onclick="call_counter('/delete', id, name);" id={{nor.0}} name={{nor.3}} type="button" class="btn btn-secondary">Bajar</button></th>
     </tr>
     {% endfor %}
   </tbody>

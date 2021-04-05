@@ -54,7 +54,7 @@ def postCalculo(request):
 	# save the data and after fetch the object in instance
 		if form.is_valid():
 			operaciones, comisiones, resultados, nombres, totalOperaciones, porNegocio, monto, porcentajes, totalComisiones,\
-			vault = getSimulacion2(form.cleaned_data['transacciones'],form.cleaned_data['cajero'])
+			vault = getSimulacion2(form.cleaned_data['transacciones'],form.cleaned_data['cajero'],form.cleaned_data['comercio'])
 
 			op = ["{:,}".format(a).replace(",",".") for a in operaciones]
 			com = ["{:,}".format(a).replace(",",".") for a in comisiones]

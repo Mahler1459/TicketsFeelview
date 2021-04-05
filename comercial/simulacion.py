@@ -3,7 +3,7 @@ import json
 #path = '/home/dr/ticketsFeelview/comercial/'
 path = 'C:/Users/agust/Desktop/Octagon/ticketsFeelview/comercial/'
 
-def getSimulacion2(transacciones, cajero):
+def getSimulacion2(transacciones, cajero, comercio):
 	with open(f"{path}data.json", "r") as read_file:
 		data = json.load(read_file)
 
@@ -12,17 +12,16 @@ def getSimulacion2(transacciones, cajero):
 	#comisiones : lo que se cobra en comisiones
 	#
 	#falta multiplicar por dispensador y reciclador
-
 	nombres = data["nombres"]
 	if cajero == 'Dispensador':
-		operaciones = [int(transacciones * a * b) for a,b in zip(data["porcentajes"],data["op_disp"])]
+		operaciones = [int(transacciones * a * b * float(comercio)) for a,b in zip(data["porcentajes"],data["op_disp"])]
 		comisiones = \
 		[int(a*b*c) for a,b,c in zip(data["montos_com_disp"],data["comisiones_disp"],operaciones)]
 		monto = data["montos_vault_disp"]
 		interv = data["int_disp"]
 		por = data["por_disp"]
 	else:
-		operaciones = [int(transacciones * a * b) for a,b in zip(data["porcentajes"],data["op_rec"])]
+		operaciones = [int(transacciones * a * b * float(comercio)) for a,b in zip(data["porcentajes"],data["op_rec"])]
 		comisiones = \
 		[int(a*b*c) for a,b,c in zip(data["montos_com_rec"],data["comisiones_rec"],operaciones)]
 		monto = data["montos_vault_rec"]
@@ -32,7 +31,7 @@ def getSimulacion2(transacciones, cajero):
 	vault = "$ {:,}".format(int(sum([ m*op for m,op in zip(monto, operaciones)])/30)).replace(",",".")
 	totalComisiones = sum(comisiones)
 	totalOperaciones = sum(operaciones)
-
+	monto = [abs(a) for a in monto]
 	if totalOperaciones < interv[0]:
 		mult = por[0]
 	elif totalOperaciones > interv[0] and totalOperaciones < interv[1]:

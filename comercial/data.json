@@ -5,18 +5,18 @@
 
 	"montos_com_rec":	[1		,20000	,1		,10000	,5000	,5000],
 
-	"montos_vault_disp":[3500	,20000	,3500	,10000	,3000	,5000],
+	"montos_vault_disp":[6300	,20000	,3500	,10000	,3000	,5000],
 	
-	"montos_vault_rec":	[3500	,20000	,3500	,10000	,5000	,5000],
+	"montos_vault_rec":	[6300	,20000	,3500	,10000	,-5000	,5000],
 	
 	"comisiones_disp":	[70		,0.03	,70		,0.03	,0.01	,0.03],
 
 	"comisiones_rec":	[70		,0.03	,70		,0.03	,0.03	,0.03],
 
+	"op_disp":			[1		,0.45	,0.45	,0.45	,0.15	,0.45],
+
 	"op_rec":			[1		,0.6	,0.6	,0.6	,0.6	,0.6],
 
-	"op_disp":			[1		,0.45	,0.45	,0.45	,0.45	,0.45],
-	
 	"nombres":["Extracciones", "Pr&#233stamos", "Env&#237o de Dinero", "Otras Liquidaciones", "Pago de Servicios", "Pago de Convenios"],
 
 	"por_disp":	[0.20,0.25,0.30],

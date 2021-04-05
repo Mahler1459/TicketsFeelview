@@ -27,9 +27,9 @@ def porCajero(request,id):
 	#return  render(request, 'tickets/por-cajero.html',{'normal': normal})
 
 def delete(request,caj,eve):
-	tick = Ticket.objects.filter(Terminal=caj, Status="ALERTA", Evento=eve)
+	tick = Ticket.objects.filter(Terminal=caj, Status="ALERTA")
 	for ticketBaja in tick:
-		ticketBaja.Status="ELIMINADO"
+		ticketBaja.Status="BAJA"
 		ticketBaja.save()
 	return redirect('/semaforo/')
 
