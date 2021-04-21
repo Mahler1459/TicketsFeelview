@@ -1,23 +1,23 @@
 {
-	"porcentajes":		[1		,0.25	,0.1	,0.2	,0.3	,0.15],
+	"porcentajes":		[1		,1		,1		,1		,1		,1	],
 	
-	"montos_com_disp":	[1		,20000	,1		,10000	,3000	,5000],
+	"montos_com_disp":	[1		,20000	,1		,0		,0		,5000],
 
-	"montos_com_rec":	[1		,20000	,1		,10000	,5000	,5000],
+	"montos_com_rec":	[1		,20000	,1		,20000	,15000	,5000],
 
-	"montos_vault_disp":[6300	,20000	,3500	,10000	,3000	,5000],
+	"montos_vault_disp":[5800	,20000	,3500	,0		,0		,5000],
 	
-	"montos_vault_rec":	[6300	,20000	,3500	,10000	,-5000	,5000],
+	"montos_vault_rec":	[5800	,20000	,3500	,-20000	,-15000	,5000],
 	
-	"comisiones_disp":	[70		,0.03	,70		,0.03	,0.01	,0.03],
+	"comisiones_disp":	[90		,0.03	,70		,0.03	,0.01	,0.03],
 
-	"comisiones_rec":	[70		,0.03	,70		,0.03	,0.03	,0.03],
+	"comisiones_rec":	[90		,0.03	,70		,0.04	,0.03	,0.03],
 
-	"op_disp":			[1		,0.45	,0.45	,0.45	,0.15	,0.45],
+	"op_disp":			[1		,0.075	,0.03	,0		,0		,0.045],
 
-	"op_rec":			[1		,0.6	,0.6	,0.6	,0.6	,0.6],
+	"op_rec":			[1		,0.15	,0.06	,0.12	,0.18	,0.09],
 
-	"nombres":["Extracciones", "Pr&#233stamos", "Env&#237o de Dinero", "Otras Liquidaciones", "Pago de Servicios", "Pago de Convenios"],
+	"nombres":["Extracciones", "Pr&#233stamos", "Env&#237o de Dinero", "Recaudac&#245n", "Pago de Servicios", "Pago de Convenios"],
 
 	"por_disp":	[0.20,0.25,0.30],
 	"int_disp":		[1500,2500],
