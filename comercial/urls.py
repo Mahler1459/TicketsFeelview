@@ -8,4 +8,5 @@ urlpatterns = [
 	path('servicio-tecnico/', views.servicioTecnico, name='servicio-tecnico'),
 	path('simulacion-simple/', views.simulacionSimple, name='simulacion-simple'),
 	path('post/ajax/calculo/', views.postCalculo, name='post-calculo'),
+	path('test/', views.testposteo, name='test'),
 ]

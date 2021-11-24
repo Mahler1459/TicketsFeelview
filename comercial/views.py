@@ -6,6 +6,10 @@ from .funciones import miMain, getServicioTecnico
 from .simulacion import getSimulacion2
 import json
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+
 def home(request):
 	return render(request, 'comercial/comercial-home.html')
 
@@ -70,3 +74,16 @@ def postCalculo(request):
 			return JsonResponse({"error": form.errors}, status=400)
 	# some error occured
 	return JsonResponse({"error": ""}, status=400)
+
+
+def testposteo(request):
+	# if this is a POST request we need to process the form data
+	if request.method == 'POST':
+		# create a form instance and populate it with data from the request:
+		print((request.POST["value"]))
+		a = request.POST["value"]
+		if barcode == asdasdasdasda:
+			return JsonResponse({"respuesta":"OK","dato":a}, status=200)
+		return HttpResponse({"respuesta":"OK","dato":a})
+	else:
+		return HttpResponse("Hola, hiciste un GET")
